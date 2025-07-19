@@ -1,0 +1,300 @@
+/* Color variables */
+:root {
+  --color-bg: #f6f8fa;
+  --color-text: #333333;
+  --color-text-muted: #666666;
+  --color-primary: #0078d4;
+  --color-primary-hover: #005ea3;
+  --color-card-bg: #ffffff;
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+  --color-card-shadow-hover: rgba(0, 0, 0, 0.12);
+  --color-input-border: #cccccc;
+  --color-input-focus-border: var(--color-primary);
+  --color-dialog-bg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #121212;
+    --color-text: #e0e0e0;
+    --color-text-muted: #a0a0a0;
+    --color-primary: #3399ff;
+    --color-primary-hover: #1a73e8;
+    --color-card-bg: #1e1e1e;
+    --color-card-shadow: rgba(0, 0, 0, 0.8);
+    --color-card-shadow-hover: rgba(0, 0, 0, 0.9);
+    --color-input-border: #555555;
+    --color-input-focus-border: var(--color-primary);
+    --color-dialog-bg: #1e1e1e;
+  }
+}
+
+/* Reset & base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px auto;
+  max-width: 960px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Controls container */
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#controls input,
+#controls select,
+#controls label {
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 1.8px solid var(--color-input-border);
+  border-radius: 6px;
+  background-color: var(--color-card-bg);
+  color: var(--color-text);
+  transition: border-color 0.2s ease, background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+#controls input[type="search"] {
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+#controls input:focus,
+#controls select:focus {
+  outline: none;
+  border-color: var(--color-input-focus-border);
+  box-shadow: 0 0 5px var(--color-primary);
+}
+
+#controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+/* Buttons in controls */
+#controls button {
+  background-color: var(--color-primary);
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-width: 120px;
+}
+
+#controls button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Restaurant List */
+#restaurantList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card Component */
+.card {
+  content-visibility: auto;
+  contain-intrinsic-size: 500px 300px;
+  background: var(--color-card-bg);
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px var(--color-card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (min-width: 600px) {
+  .card {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.card:hover {
+  box-shadow: 0 6px 15px var(--color-card-shadow-hover);
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.card small {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.card p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+}
+
+/* Image handling */
+.card > img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  margin-left: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  will-change: opacity, transform;
+  transition: box-shadow 0.3s ease;
+}
+
+.card > img:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Text container in card */
+.card > .text-content {
+  flex: 1;
+}
+
+/* Edit/Delete Buttons inside card */
+.card .card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.card .card-actions button {
+  background: var(--color-primary);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.card .card-actions button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Small screen adjustments */
+@media (max-width: 600px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card > img {
+    align-self: center;
+    margin: 12px 0 8px;
+  }
+
+  .card .card-actions {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* Dialog styling */
+dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 24px 28px;
+  width: 400px;
+  max-width: 95vw;
+  box-shadow: 0 6px 20px var(--color-card-shadow);
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: var(--color-dialog-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+dialog h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+dialog input[type="text"],
+dialog input[type="number"],
+dialog select,
+dialog textarea {
+  font-size: 1rem;
+  padding: 10px 14px;
+  border: 1.8px solid var(--color-input-border);
+  border-radius: 8px;
+  resize: vertical;
+  background-color: var(--color-card-bg);
+  color: var(--color-text);
+  transition: border-color 0.2s ease, background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+dialog input:focus,
+dialog select:focus,
+dialog textarea:focus {
+  outline: none;
+  border-color: var(--color-input-focus-border);
+  box-shadow: 0 0 5px var(--color-primary);
+}
+
+dialog textarea {
+  min-height: 80px;
+  max-height: 150px;
+}
+
+dialog label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+dialog button[type="submit"] {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 10px 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+dialog button[type="submit"]:hover {
+  background-color: var(--color-primary-hover);
+}
