@@ -145,6 +145,13 @@ h1 {
   color: var(--color-primary);
   font-weight: 700;
 }
+.card h3 a {
+  text-decoration: none;
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  font-weight: 700;
+}
 
 .card small {
   color: var(--color-text-muted);

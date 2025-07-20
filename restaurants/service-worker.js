@@ -8,7 +8,7 @@ const assets = [
   "./icon-192.png",
   "./icon-512.png",
 ];
-
+const VERSION = "v1.0.1";
 self.addEventListener("install", (e) => {
   e.waitUntil(
     caches.open(cacheName).then((cache) => {

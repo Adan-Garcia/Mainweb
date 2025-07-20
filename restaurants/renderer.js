@@ -93,6 +93,7 @@ function renderList() {
     // Global search: check all string fields, including alt text and nested info
     const fieldsToSearch = [
       r.name,
+      r.url,
       r.location,
       r.meal,
       r.category,
@@ -156,7 +157,10 @@ function renderList() {
 
     el.innerHTML = `
     <div class="text-content">
-      <h3>${rest.favorite ? "❤️ " : ""}${rest.name}</h3>
+      <h3>${rest.favorite ? "❤️ " : ""}<a href="${
+      rest.url || "#"
+    }" target="_blank">${rest.name}</a></h3>
+
       <small>
         ${rest.location} | ${rest.meal || "Unknown"} | ⭐${rest.rating || "–"}
       </small>
