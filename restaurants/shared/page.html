@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="manifest" href="manifest.json" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="app" data-type="restaurant">
+      <!-- or dynamically change this value: "store", "ride", etc. -->
+    </div>
+    <script src="search.js"></script>
+    <script src="renderer.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then((registration) => {
+            registration.onupdatefound = () => {
+              const newWorker = registration.installing;
+              newWorker.onstatechange = () => {
+                if (newWorker.state === "installed") {
+                  if (navigator.serviceWorker.controller) {
+                    console.log("New version available. Refresh to update.");
+                  } else {
+                    console.log("Service worker installed for the first time.");
+                  }
+                }
+              };
+            };
+          });
+      }
+    </script>
+  </body>
+</html>
