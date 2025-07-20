@@ -1,4 +1,7 @@
-/* Color variables */
+/* Responsive base font size */
+html {
+  font-size: clamp(16px, 2.3vw, 24px);
+}
 :root {
   --color-bg: #f6f8fa;
   --color-text: #333333;
@@ -32,12 +35,16 @@
 /* Reset & base */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 20px auto;
-  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+
+  width: 100%;
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.5;
@@ -46,9 +53,10 @@ body {
 
 h1 {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
   font-weight: 700;
   color: var(--color-text);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
 }
 
 /* Controls container */
@@ -58,31 +66,27 @@ h1 {
   gap: 12px;
   justify-content: center;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 #controls input,
 #controls select,
 #controls label {
-  font-size: 14px;
-  padding: 8px 12px;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
   border: 1.8px solid var(--color-input-border);
   border-radius: 6px;
   background-color: var(--color-card-bg);
   color: var(--color-text);
   transition: border-color 0.2s ease, background-color 0.3s ease,
     color 0.3s ease;
+  width: 100%;
+  max-width: 300px;
 }
 
 #controls input[type="search"] {
   flex-grow: 1;
-  min-width: 200px;
-}
-
-#controls input:focus,
-#controls select:focus {
-  outline: none;
-  border-color: var(--color-input-focus-border);
-  box-shadow: 0 0 5px var(--color-primary);
+  min-width: 180px;
 }
 
 #controls label {
@@ -92,17 +96,18 @@ h1 {
   white-space: nowrap;
 }
 
-/* Buttons in controls */
+/* Responsive button */
 #controls button {
   background-color: var(--color-primary);
   border: none;
   color: white;
-  padding: 10px 16px;
+  padding: 0.6rem 1rem;
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  min-width: 120px;
+  font-size: 1rem;
+  min-width: min(40%, 160px);
 }
 
 #controls button:hover {
@@ -118,23 +123,16 @@ h1 {
 
 /* Card Component */
 .card {
-  content-visibility: auto;
-  contain-intrinsic-size: 500px 300px;
   background: var(--color-card-bg);
-  padding: 16px 20px;
+  padding: 16px;
   border-radius: 12px;
   box-shadow: 0 4px 10px var(--color-card-shadow);
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
   transition: box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
-}
-
-@media (min-width: 600px) {
-  .card {
-    flex-direction: row;
-    align-items: flex-start;
-  }
 }
 
 .card:hover {
@@ -143,7 +141,7 @@ h1 {
 
 .card h3 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   color: var(--color-primary);
   font-weight: 700;
 }
@@ -155,30 +153,32 @@ h1 {
 
 .card p {
   margin: 2px 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 /* Image handling */
 .card > img {
+  width: 100%;
   max-width: 200px;
   height: auto;
   border-radius: 8px;
   margin-left: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  will-change: opacity, transform;
   transition: box-shadow 0.3s ease;
+  flex-shrink: 0;
 }
 
 .card > img:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Text container in card */
+/* Text container */
 .card > .text-content {
   flex: 1;
+  min-width: 220px;
 }
 
-/* Edit/Delete Buttons inside card */
+/* Card Actions */
 .card .card-actions {
   display: flex;
   gap: 8px;
@@ -194,6 +194,7 @@ h1 {
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.95rem;
   transition: background-color 0.2s ease;
 }
 
@@ -201,22 +202,30 @@ h1 {
   background-color: var(--color-primary-hover);
 }
 
-/* Small screen adjustments */
-@media (max-width: 600px) {
+/* Small screen layout tweaks */
+@media screen and (max-width: 600px) {
   .card {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: center;
+    position: relative;
+    min-height: 400px;
   }
 
-  .card > img {
-    align-self: center;
-    margin: 12px 0 8px;
+  .card > .text-content {
+    flex-grow: 1;
   }
-
   .card .card-actions {
     justify-content: center;
-    width: 100%;
+  }
+  .card > img {
+    align-self: center;
+    order: 2;
+    margin-top: auto;
+    margin-left: 0;
+    margin-bottom: 8px;
+    max-width: 60%;
   }
 }
 
@@ -224,12 +233,10 @@ h1 {
 dialog {
   border: none;
   border-radius: 12px;
-  padding: 24px 28px;
-  width: 400px;
-  max-width: 95vw;
+  padding: 1.5rem 1.75rem;
+  width: 100%;
+  max-width: 400px;
   box-shadow: 0 6px 20px var(--color-card-shadow);
-  font-size: 1rem;
-  font-family: inherit;
   background-color: var(--color-dialog-bg);
   color: var(--color-text);
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -237,7 +244,7 @@ dialog {
 
 dialog h3 {
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   font-weight: 700;
   color: var(--color-primary);
 }
@@ -256,7 +263,6 @@ dialog textarea {
   padding: 10px 14px;
   border: 1.8px solid var(--color-input-border);
   border-radius: 8px;
-  resize: vertical;
   background-color: var(--color-card-bg);
   color: var(--color-text);
   transition: border-color 0.2s ease, background-color 0.3s ease,

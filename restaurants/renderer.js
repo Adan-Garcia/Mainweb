@@ -149,36 +149,35 @@ function renderList() {
   }
 
   // Render each restaurant card with updated layout
-  for (const [i, rest] of sorted.entries()) {
+  for (const rest of sorted) {
+    const originalIndex = data.indexOf(rest);
     const el = document.createElement("div");
     el.className = "card";
 
     el.innerHTML = `
-      <div class="text-content">
-        <h3>${rest.favorite ? "❤️ " : ""}${rest.name}</h3>
-        <small>
-          ${rest.location} | ${rest.meal || "Unknown"} | ⭐${rest.rating || "–"}
-        </small>
-        <p><strong>Category:</strong> ${rest.category || "N/A"}</p>
-        <p><strong>Price & Cuisine:</strong> ${
-          rest.priceAndCuisine || "N/A"
-        }</p>
-        <p><strong>Venue Location:</strong> ${rest.venueLocation || "N/A"}</p>
-        <p><strong>Service Type:</strong> ${rest.serviceType || "N/A"}</p>
-        <p>${rest.description || ""}</p>
-        <div class="card-actions">
-          <button onclick="edit(${i})">Edit</button>
-          <button onclick="del(${i})">Delete</button>
-        </div>
+    <div class="text-content">
+      <h3>${rest.favorite ? "❤️ " : ""}${rest.name}</h3>
+      <small>
+        ${rest.location} | ${rest.meal || "Unknown"} | ⭐${rest.rating || "–"}
+      </small>
+      <p><strong>Category:</strong> ${rest.category || "N/A"}</p>
+      <p><strong>Price & Cuisine:</strong> ${rest.priceAndCuisine || "N/A"}</p>
+      <p><strong>Venue Location:</strong> ${rest.venueLocation || "N/A"}</p>
+      <p><strong>Service Type:</strong> ${rest.serviceType || "N/A"}</p>
+      <p>${rest.description || ""}</p>
+      <div class="card-actions">
+        <button onclick="edit(${originalIndex})">Edit</button>
+        <button onclick="del(${originalIndex})">Delete</button>
       </div>
-      ${
-        rest.image
-          ? `<img src="${rest.image}" alt="${
-              rest.alt || rest.name
-            }" loading="lazy" />`
-          : ""
-      }
-    `;
+    </div>
+    ${
+      rest.image
+        ? `<img src="${rest.image}" alt="${
+            rest.alt || rest.name
+          }" loading="lazy" />`
+        : ""
+    }
+  `;
     restaurantList.appendChild(el);
   }
 
