@@ -10,124 +10,16 @@
     <link rel="manifest" href="manifest.json" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Disney Restaurant Tracker</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Restaurant Tracker</title>
+    <link rel="stylesheet" href="shared/style.css" />
   </head>
 
   <body>
-    <h1>🍽️ Disney World Restaurant Tracker</h1>
-
-    <div id="controls">
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Search restaurants..."
-        style="margin-bottom: 8px; width: 100%; padding: 6px"
-      />
-
-      <select id="locationFilter">
-        <option value="All">All Locations</option>
-      </select>
-
-      <select id="mealFilter">
-        <option value="All">All Meals</option>
-        <option>Breakfast</option>
-        <option>Lunch</option>
-        <option>Dinner</option>
-        <option>Snack</option>
-      </select>
-
-      <label style="margin-left: 8px">
-        Min Price:
-        <input
-          id="minPriceInput"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="0"
-          style="width: 80px"
-        />
-      </label>
-
-      <label style="margin-left: 8px">
-        Max Price:
-        <input
-          id="maxPriceInput"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="∞"
-          style="width: 80px"
-        />
-      </label>
-
-      <select id="serviceTypeFilter">
-        <option value="All">All Service Types</option>
-      </select>
-
-      <select id="sortOption">
-        <option value="default">Sort: Default</option>
-        <option value="rating">Sort by Rating</option>
-        <option value="favorite">Sort by Favorites</option>
-        <option value="minPriceAsc">Sort by Min Price ↑</option>
-        <option value="minPriceDesc">Sort by Min Price ↓</option>
-        <option value="maxPriceAsc">Sort by Max Price ↑</option>
-        <option value="maxPriceDesc">Sort by Max Price ↓</option>
-      </select>
-
-      <button id="addBtn">+ Add Restaurant</button>
-      <div style="margin-top: 8px">
-        <button onclick="exportData()">📤 Export</button>
-        <label style="cursor: pointer">
-          📥 Import
-          <input
-            type="file"
-            accept=".json"
-            style="display: none"
-            onchange="importData(this.files[0])"
-          />
-        </label>
-      </div>
+    <div id="app" data-type="restaurant">
+      <!-- or dynamically change this value: "store", "ride", etc. -->
     </div>
-
-    <div id="restaurantList"></div>
-
-    <dialog id="addDialog">
-      <form method="dialog">
-        <h3>Add/Edit Restaurant</h3>
-        <input id="nameInput" placeholder="Name" required />
-        <input
-          id="locationInput"
-          placeholder="Location (e.g. Magic Kingdom)"
-          required
-        />
-        <select id="mealInput">
-          <option>Breakfast</option>
-          <option>Lunch</option>
-          <option>Dinner</option>
-          <option>Snack</option>
-        </select>
-        <input
-          id="ratingInput"
-          type="number"
-          min="1"
-          max="5"
-          placeholder="Rating (1-5)"
-        />
-        <label><input type="checkbox" id="favoriteInput" /> Favorite</label>
-        <textarea id="descInput" placeholder="Description"></textarea>
-        <input id="categoryInput" placeholder="Category" />
-        <input id="priceAndCuisineInput" placeholder="Price & Cuisine" />
-        <input id="venueLocationInput" placeholder="Venue Location" />
-        <input id="serviceTypeInput" placeholder="Service Type" />
-        <input id="imageInput" placeholder="Image URL" />
-        <input id="altInput" placeholder="Image Alt Text" />
-
-        <button type="submit">Save</button>
-      </form>
-    </dialog>
-
-    <script src="renderer.js"></script>
+    <script src="shared/search.js"></script>
+    <script src="shared/renderer.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -139,7 +31,6 @@
                 if (newWorker.state === "installed") {
                   if (navigator.serviceWorker.controller) {
                     console.log("New version available. Refresh to update.");
-                    // Optionally trigger update UI
                   } else {
                     console.log("Service worker installed for the first time.");
                   }
