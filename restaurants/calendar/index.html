@@ -3,12 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calendar</title>
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="../shared/style.css" />
   </head>
   <body>
-    <h1>Calendar View</h1>
-
-    <div id="main"></div>
+    <div id="navbar"></div>
+    <div id="main">
+      <div id="sidebar">
+        <div id="hamburger" class="hamburger hamburger--arrow js-hamburger">
+          <div class="hamburger-box">
+            <div class="hamburger-inner"></div>
+          </div>
+        </div>
+        <a class="sidebar-option" href="/calculator/">
+          <h2 class="fa-solid fa-calculator"></h2>
+          <h4>Calculator</h4>
+        </a>
+        <a class="sidebar-option" href="/Restaurants/">
+          <h2 class="fa-solid fa-utensils"></h2>
+          <h4>Restaurants</h4>
+        </a>
+        <a class="sidebar-option active" href="/calendar/">
+          <h2 class="fa-solid fa-calendar"></h2>
+          <h4>Calendar</h4>
+        </a>
+      </div>
+      <div id="display"></div>
+    </div>
+    <div id="app" data-type="restaurant"></div>
+    <script src="../js/navbar.js"></script>
   </body>
 </html>
