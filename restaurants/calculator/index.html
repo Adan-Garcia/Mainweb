@@ -14,7 +14,25 @@
     <link rel="stylesheet" href="../shared/style.css" />
   </head>
   <body>
-    <div id="navbar"></div>
+    <div id="navbar">
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-download"></i> Export
+        <button
+          style="display: none"
+          onclick="exportLocalStorageToJSON()"
+        ></button>
+      </label>
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-upload"></i> Import
+        <input
+          type="file"
+          id="jsonInput"
+          accept=".json"
+          style="display: none"
+          onchange="readAndImport(this.files[0])"
+        />
+      </label>
+    </div>
     <div id="main">
       <div id="sidebar">
         <div id="hamburger" class="hamburger hamburger--arrow js-hamburger">
@@ -22,15 +40,15 @@
             <div class="hamburger-inner"></div>
           </div>
         </div>
-        <a class="sidebar-option active" href="/calculator/">
+        <a class="sidebar-option active" href="/restaurants/calculator/">
           <h2 class="fa-solid fa-calculator"></h2>
           <h4>Calculator</h4>
         </a>
-        <a class="sidebar-option" href="/Restaurants/">
+        <a class="sidebar-option" href="/restaurants/Restaurants/">
           <h2 class="fa-solid fa-utensils"></h2>
           <h4>Restaurants</h4>
         </a>
-        <a class="sidebar-option" href="/calendar/">
+        <a class="sidebar-option" href="/restaurants/calendar/">
           <h2 class="fa-solid fa-calendar"></h2>
           <h4>Calendar</h4>
         </a>
