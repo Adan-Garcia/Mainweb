@@ -1,6 +1,7 @@
 /* Responsive base font size */
 html {
-  font-size: clamp(16px, 2.3vw, 24px);
+  overflow: hidden;
+  /*font-size: clamp(16px, 2.3vw, 24px);*/
   height: 100%;
   width: 100%;
 }
@@ -142,19 +143,17 @@ html {
 
 /* Reset & base */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
+  overflow: hidden;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0 auto;
   height: 100%;
   width: 100%;
   background: var(--background-100);
   color: var(--text-900);
-  line-height: 1.5;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -167,16 +166,21 @@ h1 {
 }
 
 #navbar {
-  width: 100%;
-  min-height: 64px;
+  display: flex;
+  justify-content: right;
+  width: calc(100%-24px);
+  min-height: 48px;
+  max-height: 48px;
+  gap: 1rem;
   background-color: var(--background-50);
-  padding: 0;
+  padding: 16px;
   border-bottom: 1px solid;
   border-color: var(--background-400);
 }
 #main {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
   height: 100%;
   width: 100%;
 }
@@ -532,8 +536,8 @@ a {
 }
 #sidebar.is-active {
   transform: translate(0, 0);
-  min-width: 270px;
-
+  min-width: 250px;
+  padding: 0px 2rem;
   height: 100%;
   min-height: unset;
   position: unset;
@@ -561,6 +565,7 @@ a {
 }
 #display {
   flex-grow: 1;
+  overflow-y: scroll;
   padding: 2rem;
 }
 .card-container {
@@ -614,6 +619,20 @@ a {
   display: flex;
   flex-direction: row;
   gap: 2rem;
+}
+@media screen and (max-width: 760px) {
+  .person-card {
+    flex-direction: column;
+    align-items: center;
+  }
+  .credit-col-container {
+    width: 100%;
+    flex-direction: column;
+  }
+  .credit-col span {
+    margin-right: auto;
+    flex-grow: 1;
+  }
 }
 /* ========== Base Styles for Form Elements ========== */
 

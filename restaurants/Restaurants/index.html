@@ -15,7 +15,25 @@
   </head>
 
   <body>
-    <div id="navbar"></div>
+    <div id="navbar">
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-download"></i> Export
+        <button
+          style="display: none"
+          onclick="exportLocalStorageToJSON()"
+        ></button>
+      </label>
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-upload"></i> Import
+        <input
+          type="file"
+          id="jsonInput"
+          accept=".json"
+          style="display: none"
+          onchange="readAndImport(this.files[0])"
+        />
+      </label>
+    </div>
     <div id="main">
       <div id="sidebar">
         <div id="hamburger" class="hamburger hamburger--arrow js-hamburger">

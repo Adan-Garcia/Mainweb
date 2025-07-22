@@ -112,17 +112,6 @@ function createFilterUI() {
   addBtn.id = "addBtn";
   addBtn.textContent = "+ Add Entry";
   controls.appendChild(addBtn);
-
-  const exportDiv = document.createElement("div");
-  exportDiv.style.marginTop = "8px";
-  exportDiv.innerHTML = `
-    <button onclick="exportData()">📤 Export</button>
-    <label style="cursor: pointer">
-      📥 Import
-      <input type="file" accept=".json" style="display: none" onchange="importData(this.files[0])" />
-    </label>
-  `;
-  controls.appendChild(exportDiv);
 }
 
 function createSelect(id, label) {
