@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../shared/style.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-download"></i> Export
+        <button
+          style="display: none"
+          onclick="exportLocalStorageToJSON()"
+        ></button>
+      </label>
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-upload"></i> Import
+        <input
+          type="file"
+          id="jsonInput"
+          accept=".json"
+          style="display: none"
+          onchange="readAndImport(this.files[0])"
+        />
+      </label>
+    </div>
+    <div id="main">
+      <div id="sidebar">
+        <div id="hamburger" class="hamburger hamburger--arrow js-hamburger">
+          <div class="hamburger-box">
+            <div class="hamburger-inner"></div>
+          </div>
+        </div>
+        <a class="sidebar-option active" href="/restaurants/calculator/">
+          <h2 class="fa-solid fa-calculator"></h2>
+          <h4>Calculator</h4>
+        </a>
+        <a class="sidebar-option" href="/restaurants/Restaurants/">
+          <h2 class="fa-solid fa-utensils"></h2>
+          <h4>Restaurants</h4>
+        </a>
+        <a class="sidebar-option" href="/restaurants/calendar/">
+          <h2 class="fa-solid fa-calendar"></h2>
+          <h4>Calendar</h4>
+        </a>
+      </div>
+      <div id="display">
+        <div id="setupView">
+          <h2>Dining Plan Setup</h2>
+          <label>
+            Number of People: <input type="number" id="numPeople" min="1" />
+          </label>
+          <label>
+            Total Meal Credits: <input type="number" id="totalMeals" min="0" />
+          </label>
+          <label>
+            Total Snack Credits:
+            <input type="number" id="totalSnacks" min="0" />
+          </label>
+          <button id="startButton">Start</button>
+        </div>
+
+        <div id="personManager" hidden>
+          <div id="personCards" class="card-container"></div>
+          <button id="resetButton" hidden>Reset</button>
+        </div>
+      </div>
+    </div>
+    <div id="app" data-type="restaurant"></div>
+    <script src="../js/navbar.js"></script>
+    <script src="calc.js"></script>
+  </body>
+</html>

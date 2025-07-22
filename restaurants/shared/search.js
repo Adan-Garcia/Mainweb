@@ -1,5 +1,5 @@
 let validTypes = ["restaurant", "store", "service", "attraction"]; // example types
-
+const attachpoint = document.getElementById("display");
 const UItypeConfigs = {
   restaurant: {
     filters: {
@@ -51,7 +51,7 @@ function createFilterUI() {
   };
   const controls = document.createElement("div");
   controls.id = "controls";
-  document.body.appendChild(controls);
+  attachpoint.appendChild(controls);
 
   if (config.filters.search?.enabled) {
     const input = document.createElement("input");
@@ -112,17 +112,6 @@ function createFilterUI() {
   addBtn.id = "addBtn";
   addBtn.textContent = "+ Add Entry";
   controls.appendChild(addBtn);
-
-  const exportDiv = document.createElement("div");
-  exportDiv.style.marginTop = "8px";
-  exportDiv.innerHTML = `
-    <button onclick="exportData()">📤 Export</button>
-    <label style="cursor: pointer">
-      📥 Import
-      <input type="file" accept=".json" style="display: none" onchange="importData(this.files[0])" />
-    </label>
-  `;
-  controls.appendChild(exportDiv);
 }
 
 function createSelect(id, label) {
@@ -154,13 +143,13 @@ function createLabeledInput(id, label, type = "text") {
 function createpage() {
   const header = document.createElement("h1");
   header.innerText = `${type.charAt(0).toUpperCase() + type.slice(1)}'s Search`;
-  document.body.appendChild(header);
+  attachpoint.appendChild(header);
 
   createFilterUI();
 
   const restaurantList = document.createElement("div");
   restaurantList.id = "entryList";
-  document.body.appendChild(restaurantList);
+  attachpoint.appendChild(restaurantList);
 
   createdialog();
   if (window.initRendererJS) window.initRendererJS();
@@ -202,6 +191,6 @@ function createdialog() {
 
         <button type="submit">Save</button>
       </form>`;
-  document.body.appendChild(dialog);
+  attachpoint.appendChild(dialog);
 }
 document.addEventListener("DOMContentLoaded", createpage);

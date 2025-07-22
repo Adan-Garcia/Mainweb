@@ -14,31 +14,9 @@
     <link rel="stylesheet" href="shared/style.css" />
   </head>
 
-  <body>
-    <div id="app" data-type="restaurant">
-      <!-- or dynamically change this value: "store", "ride", etc. -->
-    </div>
-    <script src="shared/search.js"></script>
-    <script src="shared/renderer.js"></script>
+  <body style="padding: 1rem">
     <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("/service-worker.js")
-          .then((registration) => {
-            registration.onupdatefound = () => {
-              const newWorker = registration.installing;
-              newWorker.onstatechange = () => {
-                if (newWorker.state === "installed") {
-                  if (navigator.serviceWorker.controller) {
-                    console.log("New version available. Refresh to update.");
-                  } else {
-                    console.log("Service worker installed for the first time.");
-                  }
-                }
-              };
-            };
-          });
-      }
+      window.location.href = "Restaurants/";
     </script>
   </body>
 </html>
