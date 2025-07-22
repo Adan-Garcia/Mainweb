@@ -36,32 +36,6 @@ function saveData(type, data) {
   localStorage.setItem(type + "Data", JSON.stringify(data));
 }
 
-// Import / Export
-function importDataf(file, type, onComplete) {
-  const reader = new FileReader();
-  reader.onload = function (event) {
-    try {
-      const imported = JSON.parse(event.target.result);
-      saveData(type, imported);
-      alert("Data imported successfully!");
-      onComplete();
-    } catch (e) {
-      alert("Invalid file format.");
-    }
-  };
-  reader.readAsText(file);
-}
-
-function exportDataf(type, data) {
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${type}s.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
 // Main Renderer
 window.initRendererJS = function () {
   const appElement = document.getElementById("app");
@@ -302,12 +276,4 @@ window.initRendererJS = function () {
     saveData(type, data);
     renderList();
   };
-
-  window.importData = (file) =>
-    importDataf(file, type, () => {
-      data = loadData(type) || [];
-      renderList();
-    });
-
-  window.exportData = () => exportDataf(type, data);
 };
