@@ -177,8 +177,11 @@ window.initRendererJS = function () {
       el.innerHTML = `
         <div class="text-content">
           <h3>${entry.favorite ? "❤️ " : ""}<a href="${
-        entry.url || "#"
-      }" target="_blank">${entry.name}</a></h3>
+        entry.url ||
+        `https://disneyworld.disney.go.com/dining/${entry.location}/${slugify(
+          entry.name
+        )}`
+      }">${entry.name}</a></h3>
           <small>${entry.location || "Unknown"} | ${entry.tag || "Tag"} | ⭐${
         entry.rating || "–"
       }</small>
@@ -203,6 +206,17 @@ window.initRendererJS = function () {
     updateFilterOptions(locationFilter, "location", "All Locations");
     updateFilterOptions(tagFilter, "tag", "All Tags");
     updateFilterOptions(typeFilter, "type", "All Types");
+  }
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .normalize("NFD") // Decompose accents
+      .replace(/[\u0300-\u036f]/g, "") // Remove accents
+      .replace(/\s+/g, "-") // Replace whitespace with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word characters
+      .replace(/\-\-+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start
+      .replace(/-+$/, ""); // Trim - from end
   }
 
   function updateFilterOptions(selectEl, key, label) {
