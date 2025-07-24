@@ -16,6 +16,13 @@
 
   <body style="padding: 1rem">
     <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/restaurants/service-worker.js")
+          .then((reg) => console.log("SW registered:", reg.scope))
+          .catch((err) => console.error("SW registration failed:", err));
+      }
+
       window.location.href = "Restaurants/";
     </script>
   </body>

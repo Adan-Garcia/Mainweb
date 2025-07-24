@@ -123,7 +123,14 @@
       </div>
     </div>
     <datalist id="restaurant-suggestions"></datalist>
-
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/restaurants/service-worker.js")
+          .then((reg) => console.log("SW registered:", reg.scope))
+          .catch((err) => console.error("SW registration failed:", err));
+      }
+    </script>
     <script src="cal.js"></script>
     <script src="../shared/navbar.js"></script>
   </body>

@@ -80,9 +80,3 @@ window.importLocalStorageFromJSON = function (
 
   console.log("localStorage updated.");
 };
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/restaurants/service-worker.js")
-    .then((reg) => console.log("SW registered:", reg.scope))
-    .catch((err) => console.error("SW registration failed:", err));
-}
