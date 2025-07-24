@@ -1,58 +1,61 @@
-const cacheName = "disney-tracker-v1.0.4";
-const assetsToCache = [
-  "./",
-  "./style.css",
-  "./renderer.js",
-  "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png",
+const CACHE_NAME = "restaurants-cache-v1";
+const FILES_TO_CACHE = [
+  "/restaurants/index.html",
+  "/restaurants/logo.png",
+  "/restaurants/icon-192.png",
+  "/restaurants/icon-512.png",
+  "/restaurants/manifest.json",
+  "/restaurants/calendar/index.html",
+  "/restaurants/calendar/cal.js",
+  "/restaurants/calculator/index.html",
+  "/restaurants/calculator/calc.js",
+  "/restaurants/shared/navbar.js",
+  "/restaurants/shared/renderer.js",
 ];
 
-// Don't cache index.html aggressively — always revalidate it.
 self.addEventListener("install", (event) => {
-  self.skipWaiting(); // activate this SW immediately
   event.waitUntil(
-    caches.open(cacheName).then((cache) => {
-      return cache.addAll(assetsToCache);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(FILES_TO_CACHE);
     })
   );
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  clients.claim(); // take control of open tabs
   event.waitUntil(
-    caches.keys().then((keys) =>
+    caches.keys().then((keyList) =>
       Promise.all(
-        keys.map((key) => {
-          if (key !== cacheName) return caches.delete(key);
+        keyList.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
         })
       )
     )
   );
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
-  const { request } = event;
-
-  // Always try network for HTML (like index.html) to avoid stale shell
-  if (request.mode === "navigate") {
-    event.respondWith(fetch(request).catch(() => caches.match("./index.html")));
-    return;
+  if (event.request.url.includes("/restaurants/")) {
+    event.respondWith(
+      caches
+        .match(event.request)
+        .then((response) => {
+          return (
+            response ||
+            fetch(event.request).then((fetchRes) => {
+              return caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request.url, fetchRes.clone());
+                return fetchRes;
+              });
+            })
+          );
+        })
+        .catch(() => {
+          return caches.match("/restaurants/index.html");
+        })
+    );
   }
-
-  // For other assets, use cache-first fallback strategy
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      return (
-        cached ||
-        fetch(request)
-          .then((response) => {
-            return response;
-          })
-          .catch(() => {
-            // optional: return fallback here
-          })
-      );
-    })
-  );
 });
