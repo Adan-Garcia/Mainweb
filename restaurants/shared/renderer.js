@@ -150,6 +150,7 @@ window.initRendererJS = function () {
 
       el.innerHTML = `
         <div class="text-content">
+
          <div onclick="window.open('${
            entry.url ||
            `https://disneyworld.disney.go.com/dining/${
@@ -194,6 +195,7 @@ window.initRendererJS = function () {
       .replace(/^-+/, "") // Trim - from start
       .replace(/-+$/, ""); // Trim - from end
   }
+
   function updateFilterOptions(selectEl, key, label) {
     const current = selectEl.value;
     const values = [...new Set(data.map((d) => d[key]).filter(Boolean))];
