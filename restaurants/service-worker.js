@@ -1,4 +1,4 @@
-const cacheName = "disney-tracker-v1.0.3";
+const cacheName = "disney-tracker-v1.0.4";
 const assetsToCache = [
   "./",
   "./style.css",

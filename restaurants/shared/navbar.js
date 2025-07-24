@@ -80,3 +80,21 @@ window.importLocalStorageFromJSON = function (
 
   console.log("localStorage updated.");
 };
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/service-worker.js")
+    .then((registration) => {
+      registration.onupdatefound = () => {
+        const newWorker = registration.installing;
+        newWorker.onstatechange = () => {
+          if (newWorker.state === "installed") {
+            if (navigator.serviceWorker.controller) {
+              console.log("New version available. Refresh to update.");
+            } else {
+              console.log("Service worker installed for the first time.");
+            }
+          }
+        };
+      };
+    });
+}

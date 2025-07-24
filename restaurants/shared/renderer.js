@@ -150,12 +150,15 @@ window.initRendererJS = function () {
 
       el.innerHTML = `
         <div class="text-content">
-          <h3>${entry.favorite ? "❤️ " : ""}<a href="${
-        entry.url ||
-        `https://disneyworld.disney.go.com/dining/${entry.location}/${slugify(
-          entry.name
-        )}`
-      }">${entry.name}</a></h3>
+
+         <div onclick="window.open('${
+           entry.url ||
+           `https://disneyworld.disney.go.com/dining/${
+             entry.location
+           }/${slugify(entry.name)}`
+         }','_blank').focus();"> <h3>${entry.favorite ? "❤️ " : ""}${
+        entry.name
+      }</h3></div>
           <small>${entry.location || "Unknown"} | ${entry.tag || "Tag"} | ⭐${
         entry.rating || "–"
       }</small>
