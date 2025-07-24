@@ -53,9 +53,78 @@
           <h4>Calendar</h4>
         </a>
       </div>
-      <div id="display"></div>
+      <div id="display">
+        <div id="calendar-container">
+          <header id="calendar-header">
+            <button id="prev-month">&lt;</button>
+            <h2 id="month-year"></h2>
+            <button id="next-month">&gt;</button>
+          </header>
+
+          <div id="calendar-grid">
+            <!-- Weekday headings -->
+            <div class="weekday">Sun</div>
+            <div class="weekday">Mon</div>
+            <div class="weekday">Tue</div>
+            <div class="weekday">Wed</div>
+            <div class="weekday">Thu</div>
+            <div class="weekday">Fri</div>
+            <div class="weekday">Sat</div>
+            <!-- Days will be dynamically injected here -->
+          </div>
+
+          <div id="day-detail" hidden>
+            <h3>Plan for <span id="detail-date"></span></h3>
+
+            <div class="meal">
+              <label>Breakfast:</label>
+              <input
+                type="text"
+                id="detail-breakfast-location"
+                placeholder="Enter breakfast location"
+              />
+            </div>
+            <div class="meal">
+              <label>Lunch:</label>
+              <input
+                type="text"
+                id="detail-lunch-location"
+                placeholder="Enter lunch location"
+              />
+            </div>
+            <div class="meal">
+              <label>Dinner:</label>
+              <input
+                type="text"
+                id="detail-dinner-location"
+                placeholder="Enter dinner location"
+              />
+            </div>
+
+            <div class="snacks">
+              <label>Snacks:</label>
+              <div id="detail-snack-list"></div>
+              <button id="detail-add-snack">Add Snack</button>
+            </div>
+
+            <div class="planned-location">
+              <label>Planned Location/Area:</label>
+              <input
+                type="text"
+                id="detail-planned-location"
+                placeholder="Enter planned location"
+              />
+            </div>
+
+            <button id="detail-save">Save</button>
+            <button id="detail-close">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="app" data-type="restaurant"></div>
-    <script src="../js/navbar.js"></script>
+    <datalist id="restaurant-suggestions"></datalist>
+
+    <script src="cal.js"></script>
+    <script src="../shared/navbar.js"></script>
   </body>
 </html>
