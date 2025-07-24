@@ -82,19 +82,7 @@ window.importLocalStorageFromJSON = function (
 };
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("/service-worker.js")
-    .then((registration) => {
-      registration.onupdatefound = () => {
-        const newWorker = registration.installing;
-        newWorker.onstatechange = () => {
-          if (newWorker.state === "installed") {
-            if (navigator.serviceWorker.controller) {
-              console.log("New version available. Refresh to update.");
-            } else {
-              console.log("Service worker installed for the first time.");
-            }
-          }
-        };
-      };
-    });
+    .register("/restaurants/service-worker.js")
+    .then((reg) => console.log("SW registered:", reg.scope))
+    .catch((err) => console.error("SW registration failed:", err));
 }
