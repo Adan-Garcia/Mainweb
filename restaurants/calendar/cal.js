@@ -93,7 +93,7 @@ function loadMonth(year, month) {
 
           switch (meal[0]) {
             case "b":
-              mealSummary.classList.add("fa-bacon");
+              mealSummary.classList.add("fa-mug-saucer");
               break;
             case "l":
               mealSummary.classList.add("fa-burger");
@@ -228,24 +228,40 @@ function populateRestaurantSuggestions() {
   const list = document.getElementById("restaurant-suggestions");
   list.innerHTML = "";
 
+  let restaurantDataRaw = localStorage.getItem("restaurantData");
+  console.log("Raw restaurantData:", restaurantDataRaw);
+
   let restaurantData = [];
 
   try {
-    restaurantData = JSON.parse(localStorage.getItem("restaurantData")) || [];
+    restaurantData = JSON.parse(restaurantDataRaw) || [];
   } catch (e) {
-    console.warn("Invalid restaurantData format in localStorage");
+    console.warn("Invalid restaurantData format in localStorage", e);
+    return;
+  }
+
+  if (!Array.isArray(restaurantData)) {
+    console.warn("restaurantData is not an array");
+    return;
   }
 
   restaurantData.forEach((entry) => {
-    if (entry.datatype === "Restaurant" && entry.name) {
+    if (entry.name) {
       const option = document.createElement("option");
       option.value = entry.name;
       list.appendChild(option);
+    } else {
+      console.warn("Restaurant failed", entry);
     }
   });
-  detailBreakfast.setAttribute("list", "restaurant-suggestions");
-  detailLunch.setAttribute("list", "restaurant-suggestions");
-  detailDinner.setAttribute("list", "restaurant-suggestions");
+
+  if (detailBreakfast && detailLunch && detailDinner) {
+    detailBreakfast.setAttribute("list", "restaurant-suggestions");
+    detailLunch.setAttribute("list", "restaurant-suggestions");
+    detailDinner.setAttribute("list", "restaurant-suggestions");
+  } else {
+    console.warn("One or more meal detail inputs not found");
+  }
 }
 
 // Init with current month
