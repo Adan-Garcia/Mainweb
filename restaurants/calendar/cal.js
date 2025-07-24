@@ -24,6 +24,20 @@ const detailCloseBtn = document.getElementById("detail-close");
 
 let currentYear, currentMonth; // month is 0-based
 let selectedDateStr = null;
+function saveCalendar() {
+  localStorage.setItem("calendarPlan", JSON.stringify(calendarPlan));
+}
+
+function loadCalendar() {
+  const json = localStorage.getItem("calendarPlan");
+  if (!json) return;
+  try {
+    const saved = JSON.parse(json);
+    Object.assign(calendarPlan, saved); // merge into existing calendarPlan object
+  } catch (e) {
+    console.warn("Could not load calendarPlan:", e);
+  }
+}
 
 function formatDate(year, month, day) {
   // Format YYYY-MM-DD
@@ -195,7 +209,7 @@ detailSaveBtn.addEventListener("click", () => {
     if (location)
       calendarPlan[selectedDateStr].snacks.push({ location, notes });
   });
-
+  saveCalendar();
   loadMonth(currentYear, currentMonth); // refresh calendar
   alert("Plan saved!");
   dayDetail.hidden = true;
@@ -265,6 +279,7 @@ function populateRestaurantSuggestions() {
 }
 
 // Init with current month
+loadCalendar(); // Load saved plans from localStorage
 
 loadMonth(today.getFullYear(), today.getMonth());
 document.addEventListener("DOMContentLoaded", populateRestaurantSuggestions);
