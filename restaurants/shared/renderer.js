@@ -15,13 +15,12 @@ const typeConfigs = {
       type: "Merch Type",
     },
   },
-  ride: {
-    fields: ["location", "category", "thrillLevel", "minHeight"],
+  attraction: {
+    fields: ["location", "type", "hours"],
     labels: {
       location: "Park",
-      category: "Ride Type",
-      thrillLevel: "Thrill",
-      minHeight: "Min Height",
+      type: "Ride Type",
+      hours: "Hours",
     },
   },
 };

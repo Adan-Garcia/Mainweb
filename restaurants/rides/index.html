@@ -13,6 +13,7 @@
     />
     <link rel="stylesheet" href="../shared/style.css" />
   </head>
+
   <body>
     <div id="navbar">
       <label style="cursor: pointer">
@@ -40,7 +41,7 @@
             <div class="hamburger-inner"></div>
           </div>
         </div>
-        <a class="sidebar-option active" href="/restaurants/calculator/">
+        <a class="sidebar-option" href="/restaurants/calculator/">
           <h2 class="fa-solid fa-calculator"></h2>
           <h4>Calculator</h4>
         </a>
@@ -52,34 +53,17 @@
           <h2 class="fa-solid fa-calendar"></h2>
           <h4>Calendar</h4>
         </a>
-        <a class="sidebar-option" href="/restaurants/rides/">
+        <a class="sidebar-option active" href="/restaurants/rides/">
           <h2 class="fa-solid fa-face-laugh-beam"></h2>
           <h4>Rides</h4>
         </a>
       </div>
-      <div id="display">
-        <div id="setupView">
-          <h2>Dining Plan Setup</h2>
-          <label>
-            Number of People: <input type="number" id="numPeople" min="1" />
-          </label>
-          <label>
-            Total Meal Credits: <input type="number" id="totalMeals" min="0" />
-          </label>
-          <label>
-            Total Snack Credits:
-            <input type="number" id="totalSnacks" min="0" />
-          </label>
-          <button id="startButton">Start</button>
-        </div>
-
-        <div id="personManager" hidden>
-          <div id="personCards" class="card-container"></div>
-          <button id="resetButton" hidden>Reset</button>
-        </div>
-      </div>
+      <div id="display"></div>
     </div>
-    <div id="app" data-type="restaurant"></div>
+    <div id="app" data-type="attraction"></div>
+    <script src="../shared/navbar.js"></script>
+    <script src="../shared/search.js"></script>
+    <script src="../shared/renderer.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -88,7 +72,5 @@
           .catch((err) => console.error("SW registration failed:", err));
       }
     </script>
-    <script src="../shared/navbar.js"></script>
-    <script src="calc.js"></script>
   </body>
 </html>
