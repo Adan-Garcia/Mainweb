@@ -80,3 +80,13 @@ window.importLocalStorageFromJSON = function (
 
   console.log("localStorage updated.");
 };
+document.addEventListener("DOMContentLoaded", addhome);
+function addhome() {
+  const navbar = document.getElementById("navbar");
+  const icon = document.createElement("a");
+  icon.classList.add("fa");
+  icon.classList.add("fa-home");
+  icon.style.marginLeft = "2rem";
+  icon.href = "./dashboard";
+  navbar.appendChild(icon);
+}

@@ -12,6 +12,10 @@ const detailBreakfast = document.getElementById("detail-breakfast-location");
 const detailLunch = document.getElementById("detail-lunch-location");
 const detailDinner = document.getElementById("detail-dinner-location");
 
+const detailBreakfastTime = document.getElementById("detail-breakfast-time");
+const detailLunchTime = document.getElementById("detail-lunch-time");
+const detailDinnerTime = document.getElementById("detail-dinner-time");
+
 const detailSnackList = document.getElementById("detail-snack-list");
 const detailAddSnackBtn = document.getElementById("detail-add-snack");
 
@@ -143,7 +147,9 @@ function openDayDetail(dateStr) {
     detailBreakfast.value = plan.meals.breakfast.location || "";
     detailLunch.value = plan.meals.lunch.location || "";
     detailDinner.value = plan.meals.dinner.location || "";
-
+    detailBreakfastTime.value = plan.meals.breakfast.time || "";
+    detailLunchTime.value = plan.meals.lunch.time || "";
+    detailDinnerTime.value = plan.meals.dinner.time || "";
     detailPlannedLocation.value = plan.plannedLocation || "";
 
     detailSnackList.innerHTML = "";
@@ -195,9 +201,18 @@ detailSaveBtn.addEventListener("click", () => {
 
   calendarPlan[selectedDateStr] = {
     meals: {
-      breakfast: { location: detailBreakfast.value.trim() },
-      lunch: { location: detailLunch.value.trim() },
-      dinner: { location: detailDinner.value.trim() },
+      breakfast: {
+        location: detailBreakfast.value.trim(),
+        time: detailBreakfastTime.value,
+      },
+      lunch: {
+        location: detailLunch.value.trim(),
+        time: detailLunchTime.value,
+      },
+      dinner: {
+        location: detailDinner.value.trim(),
+        time: detailDinnerTime.value,
+      },
     },
     snacks: [],
     plannedLocation: detailPlannedLocation.value.trim(),
