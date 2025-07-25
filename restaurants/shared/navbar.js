@@ -80,6 +80,7 @@ window.importLocalStorageFromJSON = function (
 
   console.log("localStorage updated.");
 };
+
 document.addEventListener("DOMContentLoaded", addhome);
 function addhome() {
   const navbar = document.getElementById("navbar");
@@ -93,4 +94,5 @@ function addhome() {
   icon.style.alignContent = "center";
   icon.href = "/restaurants/dashboard";
   navbar.appendChild(icon);
+
 }
