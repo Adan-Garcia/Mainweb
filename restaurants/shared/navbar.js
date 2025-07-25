@@ -87,6 +87,10 @@ function addhome() {
   icon.classList.add("fa");
   icon.classList.add("fa-home");
   icon.style.marginLeft = "2rem";
-  icon.href = "./dashboard";
+  icon.style.alignItems = "center";
+  icon.style.fontSize = "1.5rem";
+  icon.style.textAlign = "center";
+  icon.style.alignContent = "center";
+  icon.href = "/restaurants/dashboard";
   navbar.appendChild(icon);
 }
