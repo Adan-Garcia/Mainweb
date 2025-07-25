@@ -21,6 +21,21 @@ const UItypeConfigs = {
       { value: "maxPriceDesc", label: "Sort by Max Price ↓" },
     ],
   },
+  attraction: {
+    filters: {
+      search: { label: "Search", enabled: true },
+      location: { label: "Location", enabled: true },
+
+      type: { label: "Type", enabled: true },
+
+      sort: { label: "Sort", enabled: true },
+    },
+    sortOptions: [
+      { value: "default", label: "Sort: Default" },
+      { value: "rating", label: "Sort by Rating" },
+      { value: "favorite", label: "Sort by Favorites" },
+    ],
+  },
 };
 // Get type from data attribute (example: <div id="app" data-type="restaurant"></div>)
 const appElement = document.getElementById("app");
@@ -28,84 +43,56 @@ const typeAttr = appElement ? appElement.dataset.type : null;
 const type = validTypes.includes(typeAttr) ? typeAttr : "restaurant";
 
 function createFilterUI() {
-  // Clear app content first
-  const config = UItypeConfigs[type] || {
-    filters: {
-      search: { label: "Search", enabled: true },
-      location: { label: "Location", enabled: true },
-      tag: { label: "Tag", enabled: true },
-      type: { label: "Type", enabled: true },
-      minPrice: { label: "Min Price", enabled: true },
-      maxPrice: { label: "Max Price", enabled: true },
-      sort: { label: "Sort", enabled: true },
-    },
-    sortOptions: [
-      { value: "default", label: "Sort: Default" },
-      { value: "rating", label: "Sort by Rating" },
-      { value: "favorite", label: "Sort by Favorites" },
-      { value: "minPriceAsc", label: "Sort by Min Price ↑" },
-      { value: "minPriceDesc", label: "Sort by Min Price ↓" },
-      { value: "maxPriceAsc", label: "Sort by Max Price ↑" },
-      { value: "maxPriceDesc", label: "Sort by Max Price ↓" },
-    ],
-  };
+  const config = UItypeConfigs[type];
   const controls = document.createElement("div");
   controls.id = "controls";
   attachpoint.appendChild(controls);
 
-  if (config.filters.search?.enabled) {
-    const input = document.createElement("input");
-    input.id = "searchInput";
-    input.type = "search";
-    input.placeholder = `${config.filters.search.label} entries...`;
-    input.style.cssText = "margin-bottom: 8px; width: 100%; padding: 6px";
-    controls.appendChild(input);
-  }
-
-  if (config.filters.location?.enabled) {
-    controls.appendChild(
-      createSelect("locationFilter", config.filters.location.label)
-    );
-  }
-
-  if (config.filters.tag?.enabled) {
-    controls.appendChild(createSelect("tagFilter", config.filters.tag.label));
-  }
-
-  if (config.filters.minPrice?.enabled) {
-    controls.appendChild(
+  // All possible filters to show, even if hidden
+  const allFilters = {
+    search: () => {
+      const input = document.createElement("input");
+      input.id = "searchInput";
+      input.type = "search";
+      input.placeholder = `${config.filters.search.label} entries...`;
+      input.style.cssText = "margin-bottom: 8px; width: 100%; padding: 6px";
+      return input;
+    },
+    location: () =>
+      createSelect("locationFilter", config.filters.location.label),
+    tag: () => createSelect("tagFilter", config.filters.tag?.label || "Tag"),
+    minPrice: () =>
       createLabeledInput(
         "minPriceInput",
-        config.filters.minPrice.label,
+        config.filters.minPrice?.label || "Min Price",
         "number"
-      )
-    );
-  }
-
-  if (config.filters.maxPrice?.enabled) {
-    controls.appendChild(
+      ),
+    maxPrice: () =>
       createLabeledInput(
         "maxPriceInput",
-        config.filters.maxPrice.label,
+        config.filters.maxPrice?.label || "Max Price",
         "number"
-      )
-    );
-  }
+      ),
 
-  if (config.filters.type?.enabled) {
-    controls.appendChild(createSelect("typeFilter", config.filters.type.label));
-  }
+    type: () => createSelect("typeFilter", config.filters.type.label),
+    sort: () => {
+      const select = document.createElement("select");
+      select.id = "sortOption";
+      config.sortOptions.forEach((opt) => {
+        const option = document.createElement("option");
+        option.value = opt.value;
+        option.textContent = opt.label;
+        select.appendChild(option);
+      });
+      return select;
+    },
+  };
 
-  if (config.filters.sort?.enabled) {
-    const select = document.createElement("select");
-    select.id = "sortOption";
-    config.sortOptions.forEach((opt) => {
-      const option = document.createElement("option");
-      option.value = opt.value;
-      option.textContent = opt.label;
-      select.appendChild(option);
-    });
-    controls.appendChild(select);
+  for (const key in allFilters) {
+    const isEnabled = config.filters?.[key]?.enabled;
+    const element = allFilters[key]();
+    if (!isEnabled) element.style.display = "none";
+    controls.appendChild(element);
   }
 
   const addBtn = document.createElement("button");

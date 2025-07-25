@@ -1,20 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link rel="manifest" href="manifest.json" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restaurant Tracker</title>
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="shared/style.css" />
   </head>
+  <body>
+    <div id="navbar">
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-download"></i> Export
+        <button
+          style="display: none"
+          onclick="exportLocalStorageToJSON()"
+        ></button>
+      </label>
+      <label style="cursor: pointer">
+        <i class="fa-solid fa-upload"></i> Import
+        <input
+          type="file"
+          id="jsonInput"
+          accept=".json"
+          style="display: none"
+          onchange="readAndImport(this.files[0])"
+        />
+      </label>
+    </div>
+    <div id="main">
+      <div id="sidebar">
+        <div id="hamburger" class="hamburger hamburger--arrow js-hamburger">
+          <div class="hamburger-box">
+            <div class="hamburger-inner"></div>
+          </div>
+        </div>
+        <a class="sidebar-option active" href="/restaurants/calculator/">
+          <h2 class="fa-solid fa-calculator"></h2>
+          <h4>Calculator</h4>
+        </a>
+        <a class="sidebar-option" href="/restaurants/restaurants/">
+          <h2 class="fa-solid fa-utensils"></h2>
+          <h4>Restaurants</h4>
+        </a>
+        <a class="sidebar-option" href="/restaurants/calendar/">
+          <h2 class="fa-solid fa-calendar"></h2>
+          <h4>Calendar</h4>
+        </a>
+        <a class="sidebar-option" href="/restaurants/rides/">
+          <h2 class="fa-solid fa-face-laugh-beam"></h2>
+          <h4>Rides</h4>
+        </a>
+      </div>
+      <div id="display">
+        <div id="dashboard">
+          <div class="dashboard-cards card-container" style="flex-wrap: wrap">
+            <div class="card" style="flex-direction: column; padding: 2rem">
+              <h3>Trip Countdown</h3>
+              <p id="trip-countdown">Loading...</p>
+            </div>
+            <div class="card" style="flex-direction: column; padding: 2rem">
+              <h3>Today's Park</h3>
+              <p id="planned-park">Loading...</p>
+            </div>
+            <div class="card" style="flex-direction: column; padding: 2rem">
+              <h3>Next Meal</h3>
+              <p id="next-meal">Loading...</p>
+            </div>
+            <div class="card" style="flex-direction: column; padding: 2rem">
+              <h3>Total Dining Credits</h3>
+              <p id="total-credits">Loading...</p>
+            </div>
+            <div class="card" style="flex-direction: column; padding: 2rem">
+              <h3 style="margin: 0 auto">Credits Per Person</h3>
+              <ul id="credits-per-person"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <body style="padding: 1rem">
+    <script>
+      function loadDashboard() {
+        const calendarPlan = JSON.parse(
+          localStorage.getItem("calendarPlan") || "{}"
+        );
+        const creditData = JSON.parse(
+          localStorage.getItem("creditData") || "{}"
+        );
+
+        const today = new Date();
+        const todayKey = today.toISOString().split("T")[0];
+
+        const sortedDates = Object.keys(calendarPlan).sort(); // chronological
+
+        // --- 1. Trip Countdown ---
+        let countdownText = "No trip dates found";
+        if (sortedDates.length > 0) {
+          const firstTripDate = new Date(sortedDates[0]);
+          const diffDays = Math.ceil(
+            (firstTripDate - today) / (1000 * 60 * 60 * 24) - 1
+          );
+          countdownText =
+            diffDays < 0
+              ? "Trip already started"
+              : `${diffDays} day${diffDays === 1 ? "" : "s"} to go!`;
+        }
+        document.getElementById("trip-countdown").textContent = countdownText;
+
+        // --- 2. Today's Park Plan ---
+        const planToday = calendarPlan[todayKey];
+        const park = planToday?.plannedLocation || "Not Planned";
+        document.getElementById("planned-park").textContent = park;
+
+        // --- 3. Next Meal ---
+        let nextMealText = "No meals planned";
+        let foundMeal = false;
+
+        function getMealText(dateKey) {
+          const meals = calendarPlan[dateKey]?.meals || {};
+          for (const meal of ["breakfast", "lunch", "dinner"]) {
+            const data = meals[meal];
+            const loc = data?.location?.trim();
+            const time = data?.time?.trim(); // Check if time exists
+
+            if (loc) {
+              return `${meal[0].toUpperCase() + meal.slice(1)} at ${loc}${
+                time ? ` at ${time}` : ""
+              } (${dateKey})`;
+            }
+          }
+          return null;
+        }
+
+        // First check today's meals
+        const mealToday = getMealText(todayKey);
+        if (mealToday) {
+          nextMealText = mealToday;
+          foundMeal = true;
+        }
+
+        // If none found, search future dates
+        if (!foundMeal) {
+          for (const dateKey of sortedDates) {
+            if (dateKey > todayKey) {
+              const meal = getMealText(dateKey);
+              if (meal) {
+                nextMealText = meal;
+                break;
+              }
+            }
+          }
+        }
+
+        document.getElementById("next-meal").textContent = nextMealText;
+
+        // --- 4. Dining Credit Summary ---
+        const totalMeals = creditData?.totalMeals ?? 0;
+        const totalSnacks = creditData?.totalSnacks ?? 0;
+        document.getElementById(
+          "total-credits"
+        ).textContent = `${totalMeals} meals, ${totalSnacks} snacks`;
+
+        const people = creditData?.people || [];
+        const list = document.getElementById("credits-per-person");
+        list.innerHTML = "";
+        people.forEach((p) => {
+          const li = document.createElement("li");
+          li.textContent = `${p.name}: ${p.meals} meals, ${p.snacks} snacks`;
+          list.appendChild(li);
+        });
+      }
+
+      window.addEventListener("DOMContentLoaded", loadDashboard);
+    </script>
+
+    <script src="shared/navbar.js"></script>
+
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -22,8 +189,6 @@
           .then((reg) => console.log("SW registered:", reg.scope))
           .catch((err) => console.error("SW registration failed:", err));
       }
-
-      window.location.href = "Restaurants/";
     </script>
   </body>
 </html>
