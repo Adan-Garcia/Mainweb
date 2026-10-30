@@ -1,0 +1,655 @@
+:root {
+  --black: #000000ff;
+  --black-2: #000201ff;
+  --silver: #bcbcbcff;
+  --alabaster-grey: #d9d9d9ff;
+  --white: #fefefeff;
+  --accent: #ffffff; /* For hover states */
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--black-2);
+  font-family: "Inter", sans-serif;
+  color: var(--white);
+  /* Subtle radial gradient to mimic the glow behind the portrait */
+  background-image: radial-gradient(
+    circle at 80% 50%,
+    #1a1b1a 0%,
+    var(--black-2) 60%
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* --- Navigation Styles --- */
+.frosted {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.03
+  ); /* Added slight base color for the blur */
+  backdrop-filter: blur(12px) brightness(150%);
+  -webkit-backdrop-filter: blur(12px) brightness(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle glass border */
+}
+
+.navbar {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 2rem; /* Required for sticky positioning to activate */
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: fit-content;
+  min-height: 4rem; /* Adjusted from 8rem for a sleeker profile, change back if you prefer it taller */
+  border-radius: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3rem;
+  z-index: 1000;
+  margin-top: 2rem;
+}
+.nav-links .selected {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.116
+  ); /* Added slight base color for the blur */
+  backdrop-filter: blur(12px) brightness(150%);
+  -webkit-backdrop-filter: blur(12px) brightness(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  position: relative;
+  color: var(--silver);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-links .selected::after {
+  display: none;
+}
+
+/* --- Hero Section Styles --- */
+.hero-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  text-wrap-style: pretty;
+  max-width: 1200px;
+  gap: 3rem;
+  margin: 6rem auto;
+  padding: 0 2rem;
+}
+
+.hero-content {
+  /*max-width: 600px;*/
+}
+
+.logo-name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 5rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.05em;
+}
+
+.subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--alabaster-grey);
+  letter-spacing: 0.05em;
+  margin: 0 0 2rem 0;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--silver) 0%, transparent 100%);
+  margin-bottom: 2rem;
+  opacity: 0.5;
+}
+
+.bio-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--silver);
+  margin-bottom: 2.5rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--silver);
+  text-decoration: none;
+  font-family: "Inter", monospace; /* Monospace hint for the tech vibe */
+  font-size: 0.95rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-link:hover {
+  color: var(--white);
+  transform: translateX(3px);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 1rem 2.5rem;
+  border: 1px solid var(--white);
+  border-radius: 0.5rem;
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--white);
+  color: var(--black);
+  transform: translateY(-2px);
+}
+
+/* --- Icons --- */
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+/* --- Portrait Image Area --- */
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.portrait-placeholder {
+  width: 400px;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+
+  /* This creates a dotted border placeholder where you will eventually put your image */
+  /*border: 2px dashed rgba(255, 255, 255, 0.2); */
+  border-radius: 1rem;
+}
+.portrait-placeholder-face {
+  width: 400px;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+
+  /* This creates a dotted border placeholder where you will eventually put your image */
+  /*border: 2px dashed rgba(255, 255, 255, 0.2); */
+  border-radius: 1rem;
+  filter: brightness(0.8) sepia(20%) hue-rotate(180deg);
+  /* portrait.png already fades the neck out, so no extra mask here */
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .divider {
+    background: var(--silver);
+    margin: 2rem auto;
+    width: 50%;
+  }
+
+  .hero-image {
+    margin-top: 4rem;
+    justify-content: center;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .navbar {
+    min-width: 90%;
+    padding: 0 1rem;
+  }
+}
+/* --- New Additions --- */
+
+/* Buttons */
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #fff; /* adjust to your theme */
+  border: 2px solid #fff; /* adjust to your theme */
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+/* Skills Section */
+.skills-section {
+  padding: 60px 10%;
+  /* Add a slight background color here if you want it to stand out from the hero */
+}
+.skills-grid {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.skill-card {
+  flex: 1;
+  min-width: 250px;
+  background: rgba(255, 255, 255, 0.05); /* Frosted/card effect */
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.skill-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.08);
+}
+.skill-card h3 {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 10px;
+}
+
+/* Experience Timeline */
+.timeline-container {
+  padding-top: 120px;
+  justify-content: center;
+}
+.full-width {
+  width: 100%;
+  max-width: 900px;
+}
+.bullet-list {
+  margin-top: 10px;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+.bullet-list li {
+  margin-bottom: 8px;
+}
+
+/* Projects Layout */
+.projects-wrapper {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.project-card {
+  min-height: auto;
+  padding: 40px 10%;
+}
+
+.project-card .portrait-placeholder {
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .portrait-placeholder {
+  transform: scale(1.03);
+}
+
+/* Individual project page image gallery */
+.project-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.project-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 560px;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s ease;
+}
+
+.project-image:hover {
+  transform: scale(1.01);
+}
+
+/* Footer / Contact */
+.footer {
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.2); /* Adjust to match your theme */
+  margin-top: 40px;
+}
+.footer h2 {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 10px;
+}
+.footer p {
+  font-family: "Inter", sans-serif;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+/* --- Timeline Container --- */
+.timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* The vertical line */
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  background-color: rgba(255, 255, 255, 0.15);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+  border-radius: 2px;
+}
+
+/* --- Timeline Items --- */
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+/* Place items on left and right */
+.timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+/* The dots on the line */
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  background-color: var(--white);
+  position: absolute;
+  border-radius: 50%;
+  top: 25px;
+  z-index: 1;
+  box-shadow: 0 0 0 4px var(--black-2);
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+  right: -8px;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+  left: -8px;
+}
+
+/* --- Timeline Content Boxes --- */
+.timeline-content {
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+}
+
+.timeline-content h3 {
+  font-family: "Montserrat", sans-serif;
+  margin: 0 0 5px 0;
+  color: var(--white);
+}
+
+.timeline-date {
+  display: inline-block;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--alabaster-grey);
+  margin-bottom: 15px;
+}
+
+/* --- Mobile Responsiveness --- */
+@media screen and (max-width: 768px) {
+  /* Move line to the left */
+  .timeline::after {
+    left: 31px;
+  }
+
+  /* Make all items full width */
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  /* Align all items to the left */
+  .timeline-item:nth-child(even) {
+    left: 0%;
+  }
+
+  /* Align all dots to the left line */
+  .timeline-item:nth-child(odd) .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot {
+    left: 21px;
+    right: auto;
+  }
+}
+
+/* --- Scroll reveal animation --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+/* --- Phone fixes: keep nav and images inside the screen --- */
+@media (max-width: 600px) {
+  .navbar {
+    left: auto;
+    transform: none;
+    width: calc(100% - 2rem);
+    min-width: 0;
+    margin: 1rem auto 0;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+  .nav-links {
+    width: 100%;
+    gap: 0.25rem;
+    justify-content: space-between;
+  }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+  .nav-links .selected {
+    padding: 0.4rem 0.7rem;
+  }
+  .portrait-placeholder,
+  .portrait-placeholder-face {
+    width: min(400px, 85vw);
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .button-group {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .project-image {
+    max-width: 100%;
+    height: auto;
+  }
+  .logo-name {
+    font-size: clamp(2.4rem, 11vw, 5rem);
+    overflow-wrap: break-word;
+  }
+  .hero-container,
+  .hero-content {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* No sideways scrolling on any screen (clip keeps the sticky nav working) */
+html {
+  overflow-x: clip;
+}
+
+
+/* --- Playable demo embed --- */
+.demo-embed {
+  width: 100%;
+  margin: 0 0 3rem;
+}
+.demo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #05060a url("../images/projects/cuervo-engine/01_title.webp") center / cover no-repeat;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.demo-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #05060a;
+}
+.demo-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0) 60%);
+  text-align: center;
+}
+.demo-play {
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  background-color: rgba(5, 6, 10, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.demo-note {
+  margin: 0;
+  color: var(--silver);
+  font-size: 0.85rem;
+}

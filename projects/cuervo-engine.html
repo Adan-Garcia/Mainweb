@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adan Garcia | Cuervo Engine</title>
+    <meta name="description" content="2D Game Engine & Scripting Language — a project by Adan Garcia.">
+    <meta name="theme-color" content="#000201">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Adan Garcia | Mechanical Engineer & Developer">
+    <meta property="og:description" content="2D Game Engine & Scripting Language — a project by Adan Garcia.">
+    <meta property="og:image" content="../static/assets/portrait.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="icon" type="image/png" href="../static/assets/favicon.png">
+</head>
+<body>
+
+    <div class="navbar frosted">
+        <nav aria-label="Primary">
+            <ul class="nav-links">
+                <li><a href="../index.html" class="">ABOUT</a></li>
+                <li><a href="../projects.html" class="selected">PROJECTS</a></li>
+                <li><a href="../experience.html" class="">EXPERIENCE</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    
+<main
+  class="hero-container"
+  style="
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 900px;
+    padding-top: 2rem;
+  "
+>
+  <div class="hero-content" style="width: 100%">
+    <h1 class="logo-name">Cuervo Engine</h1>
+    <h2 class="subtitle">2D Game Engine & Scripting Language</h2>
+    <div class="divider"></div>
+
+    <div class="button-group" style="margin-bottom: 3rem">
+      
+      <a href="https://github.com/Adan-Garcia/CuervoEngine" class="btn-primary" target="_blank"
+        ><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>View on GitHub</a
+      >
+       
+      <a href="https://adan-garcia.github.io/CuervoEngine/" class="btn-secondary" target="_blank"
+        ><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>Visit Website</a
+      >
+      
+
+      <a
+        href="../projects.html"
+        class="btn-secondary"
+        style="border: none"
+        >← Back to Projects</a
+      >
+    </div>
+
+    
+    <section id="demo" class="demo-embed">
+      <div class="demo-frame" data-src="../static/demos/starfall/index.html" data-title="Starfall">
+        <div class="demo-cover">
+          <button type="button" class="btn-primary demo-play">&#9654; Play Starfall in your browser</button>
+          <p class="demo-note">Loads about 6 MB. Keyboard required: arrows to move, Z to shoot, Shift or X to focus, C to bomb, Esc to pause.</p>
+        </div>
+      </div>
+    </section>
+    
+
+    <div class="bio-text" style="font-size: 1.1rem">
+      <p>Cuervo Engine is a 2D, vector-first, deterministic game engine written in C++20. Games are scripted in Pluma, the engine's own statically typed language, which runs on a custom VM and can also be compiled ahead of time to C. Because the simulation is deterministic, a game plays out identically every time from the same inputs, which makes replays and cross-platform verification possible.</p>
+<p>The renderer has Vulkan and OpenGL / OpenGL ES / WebGL2 backends kept in verified parity, and the engine includes particles, collision, audio, UI widgets, scene files, replays, an editor, and an exporter that packages games for Linux, Windows and the web.</p>
+<p>The demo above is Starfall, a shoot-'em-up written entirely in Pluma, running in your browser through the engine's WebAssembly build.</p>
+<h2>Highlights</h2>
+<ul>
+<li>C++20 engine with Vulkan and OpenGL / WebGL2 render backends</li>
+<li>Pluma: a custom statically typed scripting language with a VM, ahead-of-time compilation to C, hot reload and a VS Code extension</li>
+<li>Deterministic simulation, so replays and results match across platforms and backends</li>
+<li>Editor, exporter and CI-built releases for Linux, Windows and the web</li>
+<li>Open source under the MIT license</li>
+</ul>
+    </div>
+  </div>
+
+  
+  <div class="project-gallery">
+    
+    <video
+      src="../static/images/projects/cuervo-engine/03_starfall_play.mp4"
+      class="project-image reveal"
+      aria-label="Cuervo Engine video 1"
+      autoplay
+      muted
+      loop
+      playsinline
+      controls
+      preload="metadata"
+    ></video>
+    
+    
+    
+    
+    
+    
+    
+    <img
+      src="../static/images/projects/cuervo-engine/02_gameplay.webp"
+      alt="Cuervo Engine screenshot 2"
+      class="project-image reveal"
+      style="--reveal-delay: 100ms"
+      loading="lazy"
+    />
+    
+    
+  </div>
+  
+</main>
+
+
+    <footer id="contact" class="footer">
+        <h2>Let's Connect</h2>
+        <p>Currently seeking Mechanical Engineering co-ops for Summer/Fall 2027 (available May through December).</p>
+        <a href="mailto:adan@adangarcia.com" class="btn-primary"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Email Me</a>
+    </footer>
+
+    <script src="../static/js/main.js" defer></script>
+</body>
+</html>
